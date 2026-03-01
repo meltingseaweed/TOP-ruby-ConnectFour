@@ -5,19 +5,19 @@ describe Game do
   subject(:game) { Game.new }
   describe '#initialize' do
     context 'Can initialize the 6x7 nested array board' do
-      it 'First value is "|   |"' do
-        expect(game.board[0][0]).to eql("|   |")
+      it 'First value is "|    |"' do
+        expect(game.board[0][0]).to eql("|    |")
       end
 
-      it 'Last value is "|   |"' do
-        expect(game.board[5][6]).to eql("|   |")
+      it 'Last value is "|    |"' do
+        expect(game.board[5][6]).to eql("|    |")
       end
 
-      it 'All values are "|   |"' do 
+      it 'All values are "|    |"' do 
         count = 0
         game.board.each_with_index do |row, row_idx|
           row.each_with_index do |val, col_idx|
-            if val == "|   |"
+            if val == "|    |"
               count += 1
             end
           end

@@ -1,18 +1,38 @@
 require_relative 'spec_helper'
 require_relative '../lib/round_check'
 require_relative '../lib/game_systems'
+require_relative '../lib/board_display'
 
-describe RoundCheck do
-  describe '#Takes inputs and alters board' do
-    context 'Takes input and sends the new value to update board' do
-      subject(:game) {Game.new}
-      # How do we link the values from Board to be tested here?
-      it 'changes the value at column 3' do
-        input = '3'
+describe GameOver do
+  subject(:game) { Game.new }
+  context 'checks for a connection of 4 from POV of newest token' do
+    it 'returns true with an orange horizontal match' do
+      game.place_token("o", 3)
+      game.place_token("o", 2)
+      game.place_token("o", 1)
+      game.place_token("o", 0)
+      expect(GameOver.game_over?(game.board)).to be true
+    end
+    
+    it 'returns true with a green horizontal match' do
+      game.place_token("g", 3)
+      game.place_token("g", 5)
+      game.place_token("g", 4)
+      game.place_token("g", 2)
+      expect(GameOver.game_over?(game.board)).to be true
+    end
 
-        game.instance_variable_get(:@board) = "|   |"
-        expect(is_empty?).to be true
-      end
+    xit 'returns true with a green vertical match' do
+      binding.pry
+      game.place_token("g", 2)
+      game.place_token("g", 2)
+      game.place_token("g", 2)
+      game.place_token("g", 2)
+      expect(GameOver.game_over?(game.board)).to be true
+    end
+
+    xit 'returns true with an orange vertical match' do 
+      
     end
   end
 end
