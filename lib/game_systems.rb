@@ -1,10 +1,9 @@
-
 require 'pry-byebug'
+require_relative 'round_check'
+
 class Game
-  # Note, might need to change the symbol or spacing size.
-  # As, when tokens are added, the lines around get unaligned.
-  # Need further testing to see what works best.
-  attr_reader :board, :current_col
+  #include GameOver
+  attr_reader :board, :current_col, :current_row
 
   def initialize
     @board = Array.new(6) { Array.new(7) }
@@ -43,5 +42,4 @@ class Game
       false
     end
   end
-
 end
