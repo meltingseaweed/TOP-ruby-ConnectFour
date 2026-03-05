@@ -40,28 +40,31 @@ module GameOver
     in [*, "| \u{1F7E2} |", "| \u{1F7E2} |", "| \u{1F7E2} |", "| \u{1F7E2} |", *]
       return true
     else
-      puts "no match"
+      puts ""
     end
   end
 
   def self.diagonal_check(board, column, current_row)
-    binding.pry
     i = 0
-    array_to_check = [[],[]]
+    array_to_check = [[],[],[],[]]
     if column < 3
       4.times do 
       array_to_check[0] << board[current_row + i][column + i]
+      array_to_check[1] << board[current_row - i][column + i]
       i += 1
       end
     elsif column > 3
       4.times do 
-      array_to_check[1] << board[current_row + i][column - i]
+      array_to_check[0] << board[current_row + i][column - i]
+      array_to_check[1] << board[current_row - i][column - i]
       i += 1
       end
     else
       4.times do 
-      array_to_check[0] << board[current_row - i][column + i]
-      array_to_check[1] << board[current_row + i][column + i]
+      array_to_check[0] << board[current_row + i][column + i]
+      array_to_check[1] << board[current_row - i][column + i]
+      array_to_check[2] << board[current_row + i][column - i]
+      array_to_check[3] << board[current_row - i][column - i]
       i += 1
       end
     end
@@ -71,7 +74,7 @@ module GameOver
     in [*,[*, "| \u{1F7E2} |", "| \u{1F7E2} |", "| \u{1F7E2} |", "| \u{1F7E2} |", *],*]
       return true
     else
-      puts "no match"
+      puts ""
     end
   end
 end 

@@ -31,31 +31,77 @@ describe Game do
     context 'places the token in the correct place' do
 
      it 'changes the value in the third column to green' do
-     game.place_token("g", 2)
+     game.place_token("green", 2)
      expect(game.board[5][2]).to eq("| \u{1F7E2} |")
      end
 
      it 'changes the value in the fifth column to orange' do
-       game.place_token("o", 5)
+       game.place_token("orange", 5)
        expect(game.board[5][5]).to eq("| \u{1F7E0} |")
      end
 
      it 'places an orange token in the next open space' do
        game.board[5][2] = "| \u{1F7E0} |"
-       game.place_token("o", 2)
+       game.place_token("orange", 2)
        expect(game.board[4][2]).to eq("| \u{1F7E0} |")
      end
 
      it 'places a green token in the next open space' do
        game.board[2][5] = "| \u{1F7E0} |"
-       game.place_token("g", 5)
+       game.place_token("green", 5)
        expect(game.board[1][5]).to eq("| \u{1F7E2} |")
      end
 
      it 'does not place anything if top row is filled' do
        game.board[0][5] = "| \u{1F7E0} |"
-       expect(game.place_token("g", 5)).to be false
+       expect(game.place_token("green", 5)).to be false
      end
     end
+  end
+
+  describe 'running the game' do
+    
+    context 'Get an input and assign the correct player' do
+      subject(:game) { Game.new }
+      it 'can recieve a correct input¥' do 
+        input = "orange"
+        allow(game).to receive(:get_player).and_return("orange")
+        expect(game).not_to receive(:puts).with("Sorry, please enter 'orange' or 'green'")
+        game.verify_player
+        #expect(game.choose_player).to eq("o")
+      end
+      before do 
+        input = 0
+        input_two = "green"
+        allow(game).to receive(:get_player).and_return(input, input_two)
+      end
+      it 'will loop once for incorrect input' do
+        expect(game).to receive(:puts).with("Sorry, please enter 'orange' or 'green'").once
+        game.verify_player
+    end
+  end
+
+  context 'getting column input' do
+    subject(:game) { Game.new }
+    it 'returns a valid input' do
+      valid_input = "2"
+      allow(game).to receive(:gets).and_return(valid_input)
+      expect(game).to_not receive(:puts).with("Please enter a number from 0 to 5")
+      game.get_column
+    end
+
+    before do
+      invalid_input = "8"
+      invalid_input_two = "?"
+      valid_input = "0"
+      allow(game).to receive(:gets).and_return(invalid_input, invalid_input_two, valid_input)
+    end
+
+    it 'repeats twice for two incorrect inputs, then returns column' do
+      expect(game).to receive(:puts).with("Please enter a number from 0 to 5").twice
+      game.get_column
+    end
+
+  end
   end
 end

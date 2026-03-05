@@ -1,16 +1,13 @@
-
-
 module Display
-
   def self.board_display(board)
     board.each_with_index do |row, row_idx|
       row.each_with_index do |place, column_index|
         print place
-        end
+      end
       puts ""
     end
+    puts "|  0 ||  1 ||  2 ||  3 ||  4 ||  5 ||  6 |"
   end
-
 end
 
   # Unicode
