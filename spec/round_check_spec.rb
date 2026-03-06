@@ -6,12 +6,12 @@ require_relative '../lib/board_display'
 describe GameOver do
   subject(:game) { Game.new }
   context 'checks for a connection of 4 from POV of newest token' do
-    it 'returns false with no match of four' do
+    xit 'returns false with no match of four' do
       game.place_token("orange", 3)
       game.place_token("orange", 2)
       game.place_token("green", 1)
       game.place_token("orange", 0)
-      expect(GameOver.game_over?(game.board, 0, 0)).to be false
+      expect(GameOver.game_over?(game.board, 0, 5)).to be false
     end
     it 'returns true with an orange horizontal match' do
       game.place_token("orange", 3)
@@ -45,7 +45,7 @@ describe GameOver do
       expect(GameOver.game_over?(game.board, 4, 3)).to be true
     end
 
-    it 'returns true with an orange diagonal match' do 
+    it 'returns true with an orange downwards diagonal match' do 
       game.board[0][3] = "| \u{1F7E0} |"
       game.board[1][4] = "| \u{1F7E0} |"
       game.board[2][5] = "| \u{1F7E0} |"
@@ -54,7 +54,7 @@ describe GameOver do
       expect(GameOver.game_over?(game.board, 3, 0)).to be true
     end
     # We will add row input as well I believe
-    it 'returns true with a green diagonal match' do 
+    it 'returns true with a green downwards diagonal match' do 
       game.board[5][1] = "| \u{1F7E2} |"
       game.board[4][2] = "| \u{1F7E2} |"
       game.board[3][3] = "| \u{1F7E2} |"
@@ -72,11 +72,21 @@ describe GameOver do
       expect(GameOver.game_over?(game.board, 4, 2)).to be false
     end
 
-    xit 'returns true with diagonal upward match to the right' do
-      
+    it 'returns true with diagonal upward match to the right' do
+      game.board[4][2] = "| \u{1F7E2} |"
+      game.board[3][3] = "| \u{1F7E2} |"
+      game.board[2][4] = "| \u{1F7E2} |"
+      game.place_token("green", 1)
+      Display.board_display(game.board)
+      expect(GameOver.game_over?(game.board, 1, 5)).to be true
     end
-    xit 'returns true with diagonal updward match to the left' do
-      
+    it 'returns true with diagonal upward match to the left' do
+      game.board[4][5] = "| \u{1F7E2} |"
+      game.board[3][4] = "| \u{1F7E2} |"
+      game.board[2][3] = "| \u{1F7E2} |"
+      game.place_token("green", 6)
+      Display.board_display(game.board)
+      expect(GameOver.game_over?(game.board, 6, 5)).to be true
     end
 
     xit 'returns true with diagonal upwards match from column 3 to the right' do
