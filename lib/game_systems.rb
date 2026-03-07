@@ -84,7 +84,7 @@ class Game
     puts "#{@player} is next, where will you place your next token?"
     @current_col = get_column.to_i
     place_token(@player, @current_col)
-    game_over = GameOver.game_over?(@board, @current_col, @current_row)
+    game_over = GameOver.game_over?(@board, @current_row, @current_col)
     if game_over == false
       @player == "orange" ? @player = "green" : @player = "orange"  
     end
