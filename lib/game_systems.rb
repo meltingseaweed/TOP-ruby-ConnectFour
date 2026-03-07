@@ -80,7 +80,6 @@ class Game
     @player = verify_player
     until game_over == true
     Display.board_display(@board)
-    puts "place your token by choosing a column number"
     puts "#{@player} is next, where will you place your next token?"
     @current_col = get_column.to_i
     place_token(@player, @current_col)

@@ -5,6 +5,8 @@ module Display
         print place
       end
       puts ""
+      puts "-----------------------------------------"
+      # puts ""
     end
     puts "|  0 ||  1 ||  2 ||  3 ||  4 ||  5 ||  6 |"
   end
